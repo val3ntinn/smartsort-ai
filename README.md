@@ -1,4 +1,4 @@
-﻿# SmartSort AI
+# SmartSort AI
 
 A local React + TypeScript recycling-robot simulation for an AI Fundamentals demonstration. Vite, Tailwind CSS, Motion, and Lucide provide the interface; no backend, external AI API, or database is required.
 
@@ -195,3 +195,13 @@ These values come from the real controller and the executed Python notebook. [DE
 This is model-based educational planning, not trained machine learning or a hardware recycling system. It assumes two classes, fixed known likelihoods, conditional independence of readings given material, static obstacles, and deterministic unit-cost movement. Cardboard maps to Paper. Positive inspection rewards can encourage spending the full finite budget. A confident classification can still be wrong. No camera, physical sensor telemetry, hardware control, or online learning is implemented.
 
 The notebook verifies mathematics and final algorithmic outcomes; it does not implement UI scheduling or browser persistence. History and preferences are browser-local and may be unavailable under restrictive storage policies. Chromium automation and desktop/mobile screenshots were used; Firefox, Safari, physical touch devices, and manual screen-reader testing are not claimed. See [SUBMISSION_REPORT.md](docs/SUBMISSION_REPORT.md) for the checks actually executed for this handoff.
+
+
+## Design system foundation
+
+The interface uses semantic graphite/blue/stone tokens and two system-font stacks. See [DESIGN_SYSTEM.md](docs/DESIGN_SYSTEM.md) for token roles, component APIs, accessibility targets, motion, and the retained-layout boundary. The [Simulator laboratory redesign](docs/SIMULATOR_DESIGN.md) implements the Observe / Reason / Act workbench; the [reference and analysis pages](docs/PAGE_REDESIGN.md) now have purpose-specific layouts.
+
+
+## Reference and analysis pages
+
+Overview introduces the connected laboratory, Algorithms provides live calculations from the existing modules, Experiment Lab compares actual configured trials, History inspects saved local executions, and About documents the implementation. See [PAGE_REDESIGN.md](docs/PAGE_REDESIGN.md) for composition, preserved behaviors, responsive treatment, and verification.

@@ -13,14 +13,13 @@ export default function SimulationMonitor({ playback }: { playback: TransportSna
   const result=playback.status === 'completed' ? state.result : null
   const reducedMotion = useReducedMotion()
   const initialLastId = useRef(state.logs.at(-1)?.id ?? 0)
-  const {stages,current,explanation}=simulationStages(playback)
-  return <section className="execution-panel panel agent-monitor">
+  const {stages}=simulationStages(playback)
+  return <section className="execution-panel agent-monitor">
     <div className="execution-heading"><div><Terminal size={16}/><h2>Agent execution</h2></div><span className="muted-chip">{state.phase.toUpperCase()} / {state.inspections.length} OF {state.config.parameters?.maxInspections??3} INSPECTIONS</span></div>
-    <div className="current-operation" role="status" aria-live="polite"><div><span className="operation-state">{playback.status.toUpperCase()}</span><h3>{current.name}</h3><span>{current.algorithm}</span></div><p>{explanation}</p></div>
     <div className="agent-timeline expanded-timeline" role="list" aria-label="Simulation stages">{stages.map(({name,status,cursor,optional},index) => {
       const Icon = stageIcons[index]
       return <div role="listitem" key={name} aria-current={cursor ? 'step' : undefined} aria-label={name+': '+status} data-state={status} className={`agent-timeline-step ${cursor ? 'active' : status === 'completed' ? 'done' : 'pending'} ${status === 'skipped' ? 'skipped' : ''}`}>
-        <motion.div className="stage-node" initial={false} animate={{borderColor:status === 'current' ? '#97bd6b' : status === 'completed' ? '#4f6e3b' : '#34412f',backgroundColor:status === 'current' ? '#293a20' : status === 'completed' ? '#23301d' : '#1b241b'}} transition={{duration:reducedMotion ? 0 : .18}}>
+        <motion.div className="stage-node" initial={false} animate={{borderColor:status === 'current' ? 'var(--stage-current)' : status === 'completed' ? 'var(--stage-complete)' : 'var(--stage-pending)',backgroundColor:status === 'current' ? 'var(--stage-current-surface)' : status === 'completed' ? 'var(--stage-complete-surface)' : 'var(--stage-pending-surface)'}} transition={{duration:reducedMotion ? 0 : .18}}>
           <motion.span key={status === 'completed' ? 'complete' : 'stage'} initial={reducedMotion ? false : {opacity:0,scale:.9}} animate={{opacity:1,scale:1}} transition={{duration:reducedMotion ? 0 : .16}}>{status === 'completed' ? <Check size={14}/> : <Icon size={15}/>}</motion.span>
         </motion.div><span>{name}</span><small>{optional && status==='pending'?'OPTIONAL':status === 'current' ? playback.status==='paused'?'PAUSED':'CURRENT':status.toUpperCase()}</small>{index<stages.length-1 && <div className="agent-stage-connector"><motion.span initial={false} animate={{scaleX:status === 'completed' ? 1 : 0}} transition={{duration:reducedMotion ? 0 : .2,ease:motionEase}}/></div>}
       </div>

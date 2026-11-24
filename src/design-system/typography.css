@@ -1,0 +1,106 @@
+/* Two system-font stacks: no downloads, layout-blocking font requests, or bundled licenses. */
+
+:root {
+  font-family: var(--font-ui);
+  font-size: 16px;
+  font-synthesis: none;
+  font-weight: 400;
+  line-height: var(--leading-normal);
+  color: var(--text-primary);
+  background: var(--background);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+}
+
+h1,h2,h3,p {
+  margin: 0;
+}
+
+h1 {
+  font-size: var(--text-title);
+  font-weight: 500;
+  line-height: var(--leading-tight);
+  letter-spacing: -.035em;
+  text-wrap: balance;
+}
+
+h2 {
+  font-size: var(--text-section);
+  font-weight: 600;
+  line-height: 1.35;
+  letter-spacing: -.015em;
+}
+
+h3 {
+  font-size: var(--text-base);
+  font-weight: 600;
+  line-height: 1.4;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+code,kbd,pre,.mono,.numeric-readout {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -.025em;
+}
+
+button,input,textarea,select {
+  font: inherit;
+}
+
+button svg {
+  flex-shrink: 0;
+}
+
+.numeric-readout {
+  font-size: var(--text-readout);
+  font-weight: 500;
+  line-height: var(--leading-tight);
+}
+
+.panel-heading h3,.section-bar h2 {
+  font-size: var(--text-base);
+  font-weight: 600;
+}
+
+.eyebrow,.workspace-label {
+  font-family: var(--font-ui);
+  font-size: var(--text-xs);
+  letter-spacing: .035em;
+}
+
+.bayes-material-heading strong,.reward-action-heading>strong,.sensor-observation strong,.bfs-metrics dd,.experiment-comparison td,.history-detail dd {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+}
+
+.algorithm-description {
+  font-size: var(--text-base);
+  font-weight: 500;
+}
+
+.algorithm-description>span,.guide-content p,.experiment-settings-body>p,.history-footer {
+  font-size: var(--text-sm);
+  font-weight: 400;
+  line-height: var(--leading-copy);
+}
+
+.panel-heading .step-number,.event-index,.cell-coordinate {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+}
+
+::selection {
+  color: var(--text-primary);
+  background: var(--interactive-surface);
+}

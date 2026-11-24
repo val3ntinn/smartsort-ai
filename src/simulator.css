@@ -1,0 +1,309 @@
+/* Simulator composition. Scoped to the laboratory; other pages retain their layouts. */
+.app-shell[data-page=Simulator] main {max-width:1660px;padding-top:var(--space-5)}
+.simulator-lab {min-width:0;--floor-size:clamp(300px,calc(100dvh - 410px),650px)}
+.lab-heading {display:flex;align-items:flex-end;justify-content:space-between;gap:var(--space-5);padding-bottom:var(--space-4)}
+.lab-heading h1 {font-weight:500;letter-spacing:-.045em;line-height:1.15;font-size:clamp(24px,2.1vw,30px)}
+.lab-kicker {display:flex;align-items:center;gap:var(--space-2);color:var(--text-secondary);font-size:var(--text-xs);margin-bottom:var(--space-2)}
+.lab-kicker svg {color:var(--interactive)}
+.lab-model {display:flex;flex-direction:column;gap:4px;text-align:right;font:var(--text-xs)/1.5 var(--font-mono);color:var(--text-secondary)}
+.simulator-lab .agent-setup {display:grid;align-items:center;gap:var(--space-4);border-block:1px solid var(--border-subtle);background:transparent;grid-template-columns:82px minmax(0,1fr) auto;padding:var(--space-2) 0}
+.simulator-lab .small-heading {display:flex;flex-direction:column;align-items:flex-start;gap:3px;padding:0;font-size:var(--text-base);line-height:1.3;color:var(--text-primary)}
+.simulator-lab .small-heading>span {font-size:var(--text-xs);font-weight:400;color:var(--text-secondary);display:none}
+.simulator-lab .agent-object-options {display:flex;gap:var(--space-2);padding:0;min-width:0}
+.simulator-lab .agent-object-options button {display:flex;align-items:center;flex-direction:row;gap:var(--space-2);padding:var(--space-2) var(--space-3);border:1px solid transparent;min-height:40px;border-radius:var(--radius-control);color:var(--text-secondary);background:transparent;min-width:0;flex:0 1 auto;text-align:left}
+.simulator-lab .agent-object-options button.selected {border-color:var(--border-control);color:var(--text-primary);background:var(--surface-raised)}
+.simulator-lab .agent-object-options button:disabled {opacity:1;color:var(--disabled-text)}
+.simulator-lab .agent-object-options button>span {font-size:var(--text-sm);line-height:1.3}
+.simulator-lab .agent-object-options small {display:none}
+.simulator-lab .agent-object-options svg {width:18px;height:18px;flex-shrink:0}
+.simulator-lab .agent-sensor-settings {padding:0;border:0;position:relative;min-width:0;margin:0}
+.simulator-lab .agent-sensor-settings>summary {display:flex;gap:var(--space-3);padding:var(--space-2);align-items:center;font-size:var(--text-xs);white-space:nowrap;color:var(--text-secondary)}
+.simulator-lab .agent-sensor-settings>summary>span {display:flex;align-items:center;gap:6px}
+.simulator-lab .agent-sensor-settings>summary>span:last-child {font-family:var(--font-mono);color:var(--interactive)}
+.simulator-lab .agent-setup:has(.agent-sensor-settings[open]) {grid-template-columns:110px minmax(0,1fr)}
+.simulator-lab .agent-sensor-settings[open] {grid-column:1 / -1;border-top:1px solid var(--border-subtle);padding-top:var(--space-2)}
+.simulator-lab .agent-settings-fields {display:grid;grid-template-columns:1fr 1fr 1fr;gap:var(--space-4);padding:var(--space-3) 0}
+.simulator-lab .agent-settings-fields label {font-size:var(--text-xs);gap:var(--space-2)}
+.simulator-lab .agent-sensor-settings>p {font-size:var(--text-xs);max-width:100ch;padding:0 0 var(--space-2);color:var(--text-secondary)}
+.simulator-lab .agent-config-error {grid-column:1 / -1;margin:0;padding:var(--space-3)}
+.simulator-lab .lab-transport {position:sticky;top:0;z-index:24;display:grid;grid-template-columns:minmax(0,1fr) auto;gap:var(--space-2) var(--space-5);margin:0;background:var(--background);border:0;padding:var(--space-3) 0 var(--space-4)}
+.simulator-lab .transport-buttons {display:flex;align-items:center;flex-wrap:wrap;gap:var(--space-2)}
+.simulator-lab .transport-buttons .primary-button {min-width:155px;flex:0 0 auto;grid-column:auto}
+.simulator-lab .transport-buttons .reset-transport {margin:0}
+.simulator-lab .transport-settings {display:flex;align-items:center;justify-content:flex-end;flex-wrap:wrap;gap:var(--space-5);padding:0;margin:0;border:0}
+.simulator-lab .transport-settings label {font-size:var(--text-xs);color:var(--text-secondary);gap:var(--space-2);width:auto;flex:0 1 auto;white-space:nowrap}
+.simulator-lab .transport-speed select {width:auto;min-width:95px;min-height:36px;padding:6px var(--space-2);font-size:var(--text-xs)}
+.simulator-lab .step-mode-toggle {display:flex;align-items:center;white-space:nowrap}
+.simulator-lab .transport-instruction {grid-column:1 / -1;margin:0;font-size:var(--text-xs);color:var(--text-secondary);line-height:1.5;display:none}
+.lab-workbench {display:grid;grid-template-columns:minmax(0,1fr) 360px;gap:var(--space-6);align-items:start}
+.lab-floor-column {min-width:0}
+.simulator-lab .navigation-environment {border:1px solid var(--border-subtle);border-radius:var(--radius-panel);overflow:hidden;background:var(--surface-inset)}
+.floor-heading {display:grid;grid-template-columns:auto minmax(0,1fr) auto;justify-content:space-between;align-items:center;border-bottom:1px solid var(--border-subtle);padding:var(--space-2) var(--space-4)}
+.floor-heading>div {display:flex;gap:var(--space-4);align-items:center}
+.floor-title {grid-column:1;grid-row:1}
+.floor-heading .floor-title {flex-direction:column;align-items:flex-start;gap:2px;padding-right:var(--space-3)}
+.floor-heading>.icon-button {grid-column:3;grid-row:1}
+.floor-heading h2 {font-size:var(--text-base);font-weight:500}
+.instrument-index {font:var(--text-xs)/1.5 var(--font-mono);color:var(--text-secondary)}
+.simulator-lab .navigation-toolbar {display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;padding:0;border:0;gap:var(--space-2);background:transparent;grid-column:2;grid-row:1}
+.simulator-lab .grid-edit-tools {gap:4px;display:flex;flex-wrap:wrap}
+.simulator-lab .grid-edit-tools button {min-height:34px;padding:6px var(--space-2);font-size:var(--text-xs);border:1px solid transparent;background:transparent;color:var(--text-secondary)}
+.simulator-lab .grid-edit-tools button.selected {border-color:var(--border-control);color:var(--text-primary);background:var(--surface-raised)}
+.simulator-lab .automatic-target {display:none;font:var(--text-xs)/1.5 var(--font-mono);letter-spacing:0;text-transform:none}
+.simulator-lab .environment-body {padding:var(--space-4) var(--space-5);background:var(--surface-inset);display:block}
+.simulator-lab .environment-meta {display:flex;align-items:center;justify-content:space-between;gap:var(--space-3);flex-wrap:wrap;margin:0;font:var(--text-xs)/1.4 var(--font-mono);color:var(--text-secondary)}
+.simulator-lab .environment-meta>span {display:flex;align-items:center;gap:6px}
+.simulator-lab .environment-meta>span:first-child {text-transform:lowercase}
+.simulator-lab .grid-stage {padding:0;width:100%;max-width:var(--floor-size);margin:var(--space-4) auto}
+.simulator-lab .axis-top {margin-bottom:0;padding:0;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));margin-left:26px;padding-bottom:var(--space-2);font:var(--text-xs)/1.2 var(--font-mono);color:var(--text-muted)}
+.simulator-lab .axis-left {width:18px;font:var(--text-xs)/1.2 var(--font-mono);color:var(--text-muted)}
+.simulator-lab .grid-with-axis {display:grid;grid-template-columns:18px minmax(0,1fr);gap:var(--space-2)}
+.simulator-lab .robot-grid {width:100%;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:5px;position:relative}
+.simulator-lab .grid-cell {aspect-ratio:1;min-width:0;border:1px solid var(--grid-border);border-radius:2px;padding:0;background:var(--grid-empty);position:relative;overflow:visible;isolation:isolate;display:flex;align-items:center;justify-content:center;flex-direction:column;box-shadow:none;color:var(--text-secondary)}
+.simulator-lab .grid-cell:not(:disabled):hover {border-color:var(--focus-ring);background:var(--surface-hover)}
+.simulator-lab .grid-cell:focus-visible {z-index:20;outline-offset:-4px}
+.simulator-lab .cell-coordinate {position:absolute;top:7px;left:7px;font:var(--text-xs)/1 var(--font-mono);color:var(--text-muted);z-index:5}
+.simulator-lab .bin-cell .cell-coordinate {display:none}
+.simulator-lab .cell-cross {font-size:18px;font-weight:300;opacity:.35}
+.simulator-lab .bin-cell.plastic {background:var(--material-plastic-surface);color:var(--material-plastic)}
+.simulator-lab .bin-cell.paper {background:var(--material-paper-surface);color:var(--material-paper)}
+.simulator-lab .bin-symbol {position:relative;margin:0 0 6px;display:flex;align-items:center;justify-content:center}
+.simulator-lab .bin-symbol>svg:first-child {width:26px;height:26px}
+.simulator-lab .bin-symbol>svg:last-child {position:absolute;right:-6px;bottom:-3px}
+.simulator-lab .bin-label {font:var(--text-xs)/1.3 var(--font-ui);letter-spacing:0}
+.simulator-lab .cell-badge {top:6px;right:6px;font:var(--text-xs)/1 var(--font-mono);padding:3px;background:var(--status-success-surface);color:var(--status-success)}
+.simulator-lab .obstacle-cell {background:repeating-linear-gradient(135deg,var(--grid-obstacle) 0 6px,var(--surface-hover) 6px 8px);color:var(--grid-obstacle-mark)}
+.simulator-lab .obstacle-cell .cell-coordinate {color:var(--text-secondary)}
+.simulator-lab .obstacle-cell>svg {width:22px;height:22px;transform:rotate(45deg);margin-bottom:5px}
+.simulator-lab .bfs-visited {border-color:var(--grid-visited-border)}
+.simulator-lab .visited-overlay {position:absolute;inset:0;background:var(--grid-visited);z-index:0;border-radius:0}
+.simulator-lab .bfs-current {outline:2px solid var(--interactive);outline-offset:-3px}
+.simulator-lab .visit-index {position:relative;z-index:5;font:var(--text-xs)/1 var(--font-mono);color:var(--text-secondary)}
+.simulator-lab .path-overlay {position:absolute;inset:0;display:flex;align-items:center;justify-content:center;z-index:2;background:transparent}
+.simulator-lab .path-point {width:14px;height:14px;border:1px solid var(--grid-route);border-radius:50%;background:var(--grid-empty)}
+.simulator-lab .path-connector {position:absolute;background:none;border-top:2px dashed var(--grid-route);height:0;width:calc(100% + 5px);transform-origin:left center;top:50%;left:50%}
+.simulator-lab .path-left .path-connector {left:auto;right:50%;transform-origin:right center}
+.simulator-lab .path-up .path-connector,.simulator-lab .path-down .path-connector {width:0;height:calc(100% + 5px);border-top:0;border-left:2px dashed var(--grid-route);left:50%;top:50%;transform-origin:center top}
+.simulator-lab .path-up .path-connector {top:auto;bottom:50%;transform-origin:center bottom}
+.simulator-lab .path-step {position:relative;z-index:4;font:var(--text-xs)/1 var(--font-mono);background:var(--grid-empty);padding:3px;color:var(--grid-route);border-radius:50%}
+.simulator-lab .edge-traversed .path-connector {border-style:solid;border-color:var(--status-success)}
+.simulator-lab .path-traversed .path-point {background:var(--status-success);border-color:var(--status-success)}
+.simulator-lab .path-traversed .path-step {color:var(--status-success)}
+.simulator-lab .target-cell {border-color:var(--grid-target);border-width:2px}
+.simulator-lab .robot-position-marker {width:calc((100% - 15px)/4);height:calc((100% - 15px)/4);z-index:12;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:2px;pointer-events:none}
+.simulator-lab .robot-chassis {width:clamp(35px,45%,58px);height:auto;position:relative}
+.robot-chassis svg {display:block;width:100%;height:auto;overflow:visible}
+.chassis-body {fill:var(--grid-robot);stroke:var(--grid-robot-ink);stroke-width:1}
+.chassis-track {fill:var(--text-muted)}
+.chassis-nose {stroke:var(--grid-robot);stroke-width:2;stroke-linecap:round}
+.chassis-sensor {fill:var(--grid-robot-ink);stroke:var(--interactive);stroke-width:1}
+.simulator-lab .robot-active-indicator {position:absolute;right:8%;top:28%;width:5px;height:5px;border:0;background:var(--status-info);box-shadow:none}
+.simulator-lab .robot-marker-caption {margin:0;font:var(--text-xs)/1.2 var(--font-mono);color:var(--text-primary);display:flex;align-items:center;gap:3px;white-space:nowrap;text-transform:none}
+.simulator-lab .robot-arrival-ring {border:1px solid var(--status-success);border-radius:3px}
+.simulator-lab .navigation-legend {max-width:none;display:flex;flex-wrap:wrap;gap:var(--space-3);margin:0;padding:0;font-size:var(--text-xs)}
+.simulator-lab .navigation-legend>span {display:flex;align-items:center;gap:5px}
+.legend-traversed {display:inline-block;width:8px;height:8px;background:var(--status-success)}
+.simulator-lab .coordinate-toggle {margin-left:auto;display:flex;align-items:center;gap:6px;font-size:var(--text-xs);min-height:28px}
+.simulator-lab .navigation-hint {border-top:1px solid var(--border-subtle);padding:var(--space-2) var(--space-5);font-size:var(--text-xs);line-height:1.5;background:transparent;display:flex;justify-content:space-between;gap:var(--space-3)}
+.simulator-lab .lab-operation {margin:0;padding:var(--space-4) 0;border:0;border-bottom:1px solid var(--border-subtle);background:transparent}
+.simulator-lab .lab-operation>div {display:flex;align-items:center;gap:var(--space-3);flex-wrap:wrap}
+.simulator-lab .lab-operation h3 {font-size:var(--text-base);color:var(--text-primary)}
+.simulator-lab .lab-operation>div>span:last-child {margin-left:auto;font:var(--text-xs)/1.5 var(--font-mono);color:var(--text-secondary)}
+.simulator-lab .lab-operation p {margin:var(--space-2) 0 0;font-size:var(--text-sm);line-height:1.6;color:var(--text-secondary);max-width:90ch}
+.simulator-lab .operation-state {font-family:var(--font-mono);font-size:var(--text-xs);letter-spacing:0}
+.reasoning-inspector {min-width:0;border-left:1px solid var(--border-subtle);padding-left:var(--space-5)}
+.inspector-heading {display:flex;align-items:center;justify-content:space-between;gap:var(--space-2);padding-bottom:var(--space-3)}
+.inspector-heading>span:last-child {font-size:var(--text-xs);color:var(--text-muted)}
+.reasoning-inspector .inspector-follow {font-size:var(--text-xs);padding:4px 6px;min-height:28px;color:var(--text-secondary);font-weight:400}
+.reasoning-inspector .inspector-follow[aria-pressed=true] {color:var(--interactive-text)}
+.reasoning-inspector .ss-tabs [role=tablist] {display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:0}
+.reasoning-inspector .ss-tabs [role=tab] {font-size:var(--text-xs);padding:var(--space-2) 0;min-width:0;white-space:nowrap}
+.reasoning-inspector .ss-tabs [role=tabpanel] {padding:0}
+.reasoning-inspector .panel {border:0;border-radius:0;background:transparent;box-shadow:none}
+.reasoning-inspector .panel-heading {padding:var(--space-4) 0 var(--space-3);height:auto;gap:var(--space-2);border-bottom:0;min-height:0}
+.reasoning-inspector .panel-heading .step-number {display:none}
+.reasoning-inspector .panel-heading h3 {font-size:var(--text-base)}
+.reasoning-inspector .algorithm-content {padding:0}
+.reasoning-inspector .algorithm-description {font-size:var(--text-base);margin-bottom:var(--space-4)}
+.reasoning-inspector .algorithm-description>span {font-size:var(--text-xs);line-height:1.5;margin-top:5px}
+.reasoning-inspector .algorithm-footer,.reasoning-inspector .bayes-model-note,.reasoning-inspector .decision-model-note {font-size:var(--text-xs);padding:var(--space-3) 0;margin:0;line-height:1.6;background:transparent;border-color:var(--border-subtle)}
+.reasoning-inspector .live-sensor-monitor {border:0;border-bottom:1px solid var(--border-subtle);padding:var(--space-4) 0;background:transparent}
+.reasoning-inspector .sensor-monitor-heading {font-size:var(--text-xs);font-weight:500}
+.reasoning-inspector .sensor-monitor-body {display:grid;grid-template-columns:1fr;gap:var(--space-3);padding-top:var(--space-3)}
+.reasoning-inspector .sensor-activity {grid-column:auto;display:flex;gap:var(--space-3);align-items:center}
+.reasoning-inspector .sensor-activity svg {width:90px;height:24px;flex-shrink:0}
+.reasoning-inspector .sensor-activity>span {font-size:var(--text-xs);line-height:1.5;text-align:left}
+.reasoning-inspector .sensor-observation {display:grid;grid-template-columns:1fr auto;align-items:baseline;gap:var(--space-2);padding:0;border:0}
+.reasoning-inspector .sensor-observation>span {font-size:var(--text-xs)}
+.reasoning-inspector .sensor-observation strong {font-size:var(--text-sm)}
+.reasoning-inspector .sensor-simulation-note {display:none}
+.sensor-model-details {min-width:0;border-top:1px solid var(--border-subtle)}
+.sensor-model-details summary {font-size:var(--text-xs);color:var(--text-secondary);padding-block:var(--space-2)}
+.reasoning-inspector .sensor-likelihood-table {width:100%;font-size:var(--text-xs);margin-top:var(--space-2)}
+.reasoning-inspector .sensor-likelihood-table caption {display:none}
+.belief-axis-labels {display:flex;align-items:center;justify-content:space-between;gap:6px;font:var(--text-xs)/1.5 var(--font-mono);color:var(--text-muted)}
+.belief-axis-labels>span:nth-child(2) {text-align:center;font-family:var(--font-ui);color:var(--text-secondary)}
+.belief-key {display:flex;flex-wrap:wrap;gap:var(--space-4);margin:var(--space-2) 0 var(--space-4);font-size:var(--text-xs);color:var(--text-secondary)}
+.belief-key>span {display:flex;align-items:center;gap:6px}
+.key-prior {display:block;width:8px;height:8px;border:1px solid var(--chart-prior);transform:rotate(45deg)}
+.key-posterior {display:block;width:9px;height:9px;background:var(--chart-posterior);border-radius:50%}
+.simulator-lab .lab-status {display:flex;margin:0;padding:0;background:transparent;border:0;gap:5px}
+.simulator-lab .lab-status>div {display:flex;align-items:center;justify-content:flex-end;gap:var(--space-3);flex-wrap:wrap}
+.simulator-lab .lab-status h3 {font-size:var(--text-base);color:var(--text-primary);font-family:var(--font-ui)}
+.simulator-lab .lab-status>span {font-size:var(--text-xs);color:var(--text-secondary)}
+.operation-explanation {padding:var(--space-3) 0;border-bottom:1px solid var(--border-subtle);font-size:var(--text-sm);line-height:1.6;color:var(--text-secondary)}
+.operation-explanation.has-failure {color:var(--status-warning)}
+.belief-introduction {font-size:var(--text-xs);line-height:1.5;color:var(--text-secondary)}
+.belief-introduction>span {display:block;margin-top:5px}
+.belief-introduction strong {color:var(--text-primary);font-family:var(--font-mono)}
+.belief-table {margin-top:var(--space-4)}
+.belief-table-head,.belief-numbers {display:grid;grid-template-columns:minmax(0,1fr) 70px 85px;align-items:baseline;gap:var(--space-2)}
+.belief-table-head {color:var(--text-muted);font-size:var(--text-xs);padding-bottom:var(--space-2);border-bottom:1px solid var(--border-subtle)}
+.belief-table-head>span:not(:first-child) {text-align:right}
+.belief-material {padding:var(--space-3) 0}
+.belief-numbers {font-size:var(--text-sm)}
+.belief-numbers>span:first-child {display:flex;flex-direction:column;gap:4px}
+.belief-numbers small {font-size:var(--text-xs);color:var(--interactive)}
+.belief-numbers>span:nth-child(2) {text-align:right;color:var(--text-secondary);font:var(--text-xs)/1.5 var(--font-mono)}
+.belief-numbers strong {font:var(--text-sm)/1.5 var(--font-mono);text-align:right;color:var(--text-primary)}
+.belief-axis {position:relative;height:22px;margin:var(--space-2) 6px 0;isolation:isolate}
+.belief-axis-rule {position:absolute;left:0;right:0;top:10px;height:1px;background:var(--border-control)}
+.belief-prior-marker {position:absolute;width:8px;height:8px;transform:translateX(-50%) rotate(45deg);border:1px solid var(--chart-prior);background:var(--surface-inset);top:7px;z-index:3}
+.belief-posterior-marker {position:absolute;width:10px;height:10px;border-radius:50%;background:var(--chart-posterior);top:6px;margin-left:-5px;z-index:4}
+.belief-shift {position:absolute;height:3px;top:9px;background:var(--chart-posterior);z-index:2}
+.reasoning-inspector .bayes-result {padding:var(--space-3) 0;display:flex;flex-direction:column;gap:5px;background:transparent;border-top:1px solid var(--border-subtle);border-bottom:1px solid var(--border-subtle);font-size:var(--text-sm)}
+.reasoning-inspector .bayes-result strong {font-size:var(--text-sm)}
+.reasoning-inspector .bayes-calculation {margin:0;padding:var(--space-3) 0;border:0}
+.reasoning-inspector .bayes-calculation summary {font-size:var(--text-xs);display:flex;justify-content:space-between;gap:var(--space-2)}
+.reasoning-inspector .bayes-calculation summary>span {float:none;font-size:var(--text-xs)}
+.reasoning-inspector .bayes-formula,.reasoning-inspector .bayes-calculation-values code {font-size:var(--text-xs);overflow-wrap:anywhere;line-height:1.7}
+.reasoning-inspector .bayes-calculation-values p {display:block;margin-top:var(--space-3)}
+.reasoning-inspector .bayes-calculation-values code {display:block;margin-top:5px}
+.reasoning-inspector .decision-belief {font-size:var(--text-xs);flex-direction:column;align-items:flex-start;gap:5px;padding:var(--space-3) 0}
+.reasoning-inspector .decision-state-probabilities {display:flex;flex-direction:column;gap:4px;font-size:var(--text-xs);padding:0 0 var(--space-3)}
+.reasoning-inspector .reward-action {padding:var(--space-3) 0;background:transparent;border:0;border-top:1px solid var(--border-subtle)}
+.reasoning-inspector .reward-action-heading {display:flex;flex-wrap:wrap;align-items:center;gap:var(--space-2)}
+.reasoning-inspector .reward-action-heading>span {font-size:var(--text-xs);gap:var(--space-2);flex-wrap:wrap}
+.reasoning-inspector .reward-action-heading>strong {font-size:var(--text-readout);margin-left:auto}
+.reasoning-inspector .reward-selected {font-size:var(--text-xs);padding:3px}
+.reasoning-inspector .reward-scale {font-size:var(--text-xs);margin-block:var(--space-2)}
+.reasoning-inspector .action-value-parts {font-size:var(--text-xs);line-height:1.6}
+.reasoning-inspector .decision-recommendation {display:flex;flex-wrap:wrap;gap:var(--space-2);padding:var(--space-3);font-size:var(--text-sm);margin:var(--space-4) 0}
+.reasoning-inspector .decision-breakdown {margin:0;border:0;padding:0}
+.reasoning-inspector .decision-breakdown summary {font-size:var(--text-xs)}
+.reasoning-inspector .decision-breakdown table {table-layout:fixed;width:100%;font-size:var(--text-xs)}
+.reasoning-inspector .decision-breakdown :is(th,td) {font-size:var(--text-xs);padding:var(--space-2) 3px;overflow-wrap:anywhere}
+.reasoning-inspector .decision-breakdown caption {font-size:var(--text-xs);line-height:1.5}
+.reasoning-inspector .bellman-formula,.reasoning-inspector .decision-explanation {font-size:var(--text-xs);overflow-wrap:anywhere;line-height:1.7}
+.inspector-destination {border-top:1px solid var(--border-subtle);padding:var(--space-4) 0;display:grid;grid-template-columns:1fr auto;gap:var(--space-2);font-size:var(--text-xs);color:var(--text-secondary)}
+.inspector-destination strong {grid-column:1;font-size:var(--text-sm);color:var(--text-primary);font-weight:500}
+.inspector-destination svg {grid-column:2;grid-row:1 / 3;align-self:center}
+.inspector-footnote {font-size:var(--text-xs);color:var(--text-muted);line-height:1.6;padding:var(--space-4) 0;margin-top:var(--space-3);border-top:1px solid var(--border-subtle)}
+.reasoning-inspector .bfs-metrics {display:flex;flex-direction:column;gap:0;padding:0;border:0}
+.reasoning-inspector .bfs-metrics>div {display:flex;align-items:center;justify-content:space-between;padding:var(--space-3) 0;border-bottom:1px solid var(--border-subtle);gap:var(--space-3)}
+.reasoning-inspector .bfs-metrics dt {font-size:var(--text-xs)}
+.reasoning-inspector .bfs-metrics dd {font-size:var(--text-base);text-align:right;margin:0}
+.reasoning-inspector .bfs-route {padding:var(--space-3) 0;background:transparent}
+.reasoning-inspector .bfs-route code {display:block;font-size:var(--text-xs);line-height:1.8;overflow-wrap:anywhere}
+.inspector-outcome {border-top:1px solid var(--border-subtle);padding-top:var(--space-5);font-size:var(--text-sm);line-height:1.6;color:var(--text-secondary)}
+.inspector-outcome>strong {display:block;margin:var(--space-2) 0;color:var(--text-primary)}
+.inspector-outcome.correct>svg {color:var(--status-success)}
+.inspector-outcome:is(.incorrect,.error)>svg {color:var(--status-error)}
+.inspector-outcome:is(.unreachable,.unresolved)>svg {color:var(--status-warning)}
+.simulator-lab .agent-monitor {border:0;border-top:1px solid var(--border-subtle);border-radius:0;background:transparent;margin-top:var(--space-6)}
+.simulator-lab .execution-heading {padding:var(--space-4) 0;border:0}
+.simulator-lab .execution-heading h2 {font-size:var(--text-base)}
+.simulator-lab .expanded-timeline {display:grid;grid-template-columns:repeat(9,minmax(0,1fr));gap:var(--space-2);padding:0 0 var(--space-5);border-bottom:1px solid var(--border-subtle)}
+.simulator-lab .agent-timeline-step {font-size:var(--text-xs);display:flex;align-items:flex-start;flex-direction:column;gap:6px;position:relative;min-width:0}
+.simulator-lab .stage-node {width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center}
+.simulator-lab .stage-node>span {display:flex;align-items:center;justify-content:center}
+.simulator-lab .agent-timeline-step>small {font:var(--text-xs)/1.3 var(--font-mono);color:var(--text-muted);white-space:normal}
+.simulator-lab .agent-stage-connector {display:none}
+.simulator-lab .agent-final-result {margin:var(--space-4) 0;padding:var(--space-4);border-radius:var(--radius-control);display:flex;gap:var(--space-3);font-size:var(--text-sm);border:1px solid var(--border-subtle)}
+.simulator-lab .agent-final-result strong {font-size:var(--text-base)}
+.simulator-lab .agent-final-result p {font-size:var(--text-sm);line-height:1.6}
+.simulator-lab .agent-final-result dl {display:flex;flex-wrap:wrap;gap:var(--space-4) var(--space-6);margin:var(--space-3) 0 0}
+.simulator-lab .agent-final-result dt {font-size:var(--text-xs)}
+.simulator-lab .agent-final-result dd {font-size:var(--text-sm);margin:3px 0 0}
+.simulator-lab .agent-log-heading {padding:var(--space-4) 0 var(--space-3)}
+.simulator-lab .agent-log-heading h3 {font-size:var(--text-sm)}
+.simulator-lab .agent-log-heading>span {font-size:var(--text-xs)}
+.simulator-lab .agent-event-log {border:1px solid var(--border-subtle);border-radius:var(--radius-control);max-height:260px;background:var(--surface-inset);margin:0}
+.simulator-lab .agent-event-log>div {font-size:var(--text-xs);padding:var(--space-3);line-height:1.6;grid-template-columns:24px 60px minmax(0,1fr);gap:var(--space-3)}
+.simulator-lab .event-stage,.simulator-lab .event-index {font-size:var(--text-xs)}
+.floor-expanded .lab-workbench {grid-template-columns:minmax(0,1fr)}
+.floor-expanded .reasoning-inspector {display:none}
+.floor-expanded .grid-stage {max-width:min(750px,calc(100dvh - 330px))}
+@media(min-width:1700px) {.lab-workbench {grid-template-columns:minmax(0,1fr) 420px}}
+@media(max-width:1150px) {
+ .lab-workbench {grid-template-columns:minmax(0,1fr) 310px;gap:var(--space-4)}
+ .reasoning-inspector {padding-left:var(--space-4)}
+ .simulator-lab .agent-setup {grid-template-columns:minmax(0,1fr) auto;gap:var(--space-2)}
+ .simulator-lab .small-heading {display:none}
+ .simulator-lab .transport-settings {gap:var(--space-3)}
+ .simulator-lab .lab-transport {gap:var(--space-3)}
+ .simulator-lab .agent-object-options button {padding:var(--space-2);gap:6px}
+ .simulator-lab .agent-sensor-settings>summary {flex-wrap:wrap;gap:4px;white-space:normal}
+ .lab-model {display:none}
+}
+@media(max-width:950px) {
+ .lab-workbench {grid-template-columns:minmax(0,1fr)}
+ .reasoning-inspector {border-left:0;padding-left:0;border-top:1px solid var(--border-subtle);padding-top:var(--space-5)}
+ .reasoning-inspector .ss-tabs [role=tabpanel]:not([hidden]) {display:block;max-width:700px;margin:auto}
+ .simulator-lab {--floor-size:clamp(350px,calc(100dvh - 350px),620px)}
+ .simulator-lab .lab-transport {grid-template-columns:minmax(0,1fr)}
+ .simulator-lab .transport-settings {justify-content:flex-start}
+ .simulator-lab .agent-setup {grid-template-columns:minmax(0,1fr)}
+ .simulator-lab .agent-sensor-settings>summary {justify-content:space-between;padding-inline:0}
+ .simulator-lab .agent-setup:has(.agent-sensor-settings[open]) {grid-template-columns:minmax(0,1fr)}
+ .simulator-lab .agent-settings-fields {grid-template-columns:1fr 1fr}
+}
+@media(max-width:720px) {
+ .app-shell[data-page=Simulator] main {padding-top:var(--space-4)}
+ .lab-heading {padding-bottom:var(--space-4)}
+ .lab-heading h1 {font-size:28px}
+ .lab-heading {flex-wrap:wrap;gap:var(--space-3)}
+ .simulator-lab .lab-status {flex-direction:row;align-items:center;justify-content:space-between;width:100%;text-align:left}
+ .simulator-lab .lab-status>div {justify-content:flex-start}
+ .lab-kicker {font-size:var(--text-xs)}
+ .simulator-lab .agent-object-options {display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:var(--space-1)}
+ .simulator-lab .agent-object-options button {flex-direction:column;align-items:flex-start;padding:var(--space-2);gap:6px}
+ .simulator-lab .agent-object-options button>span {font-size:var(--text-xs)}
+ .simulator-lab .lab-transport {padding-bottom:var(--space-4)}
+ .simulator-lab .transport-buttons {display:grid;grid-template-columns:minmax(0,1.4fr) minmax(0,1fr) auto;gap:var(--space-1)}
+ .simulator-lab .transport-buttons .primary-button {min-width:0;font-size:var(--text-xs)}
+ .simulator-lab .transport-buttons button {padding-inline:var(--space-2);font-size:var(--text-xs);gap:5px}
+ .simulator-lab .transport-settings {justify-content:space-between;gap:var(--space-2)}
+ .simulator-lab .transport-speed select {min-width:78px}
+ .simulator-lab .transport-instruction {font-size:var(--text-xs)}
+ .simulator-lab .agent-settings-fields {grid-template-columns:minmax(0,1fr)}
+ .floor-heading {padding:var(--space-2) var(--space-3);grid-template-columns:minmax(0,1fr) auto;gap:var(--space-2)}
+ .floor-heading>.icon-button {grid-column:2}
+ .simulator-lab .floor-heading .navigation-toolbar {grid-column:1 / -1;grid-row:2;padding:0;justify-content:flex-start}
+ .floor-heading>div {gap:var(--space-2);flex-wrap:wrap}
+ .floor-heading .floor-title {flex-direction:row;align-items:center;gap:var(--space-2);padding-right:0}
+ .simulator-lab .navigation-toolbar {padding:var(--space-2) var(--space-3)}
+ .simulator-lab .automatic-target {display:none}
+ .simulator-lab .environment-body {padding:var(--space-3)}
+ .simulator-lab .environment-meta {font-size:var(--text-xs)}
+ .simulator-lab .environment-meta>span:first-child {display:none}
+ .simulator-lab .grid-stage {max-width:none;margin:var(--space-3) 0}
+ .simulator-lab .grid-with-axis {grid-template-columns:14px minmax(0,1fr);gap:6px}
+ .simulator-lab .axis-top {margin-left:20px;padding-bottom:6px}
+ .simulator-lab .axis-left {width:14px}
+ .simulator-lab .cell-coordinate {top:5px;left:4px;font-size:var(--text-xs)}
+ .simulator-lab .robot-chassis {width:34px}
+ .simulator-lab .robot-marker-caption {font-size:var(--text-xs)}
+ .simulator-lab .navigation-hint {padding:var(--space-2) var(--space-3)}
+ .simulator-lab .navigation-hint>span:last-child {display:none}
+ .simulator-lab .navigation-legend {gap:var(--space-2) var(--space-3)}
+ .simulator-lab .coordinate-toggle {margin-left:0}
+ .simulator-lab .expanded-timeline {grid-template-columns:repeat(3,minmax(0,1fr));gap:var(--space-4)}
+ .simulator-lab .execution-heading {flex-wrap:wrap;gap:var(--space-2)}
+ .simulator-lab .agent-log-heading {flex-wrap:wrap;gap:var(--space-2)}
+ .simulator-lab .agent-event-log>div {grid-template-columns:22px minmax(0,1fr);gap:var(--space-2)}
+ .simulator-lab .event-stage {grid-column:2}
+ .simulator-lab .agent-event-log>div>span:last-child {grid-column:2}
+ .simulator-lab .lab-operation>div>span:last-child {margin-left:0}
+}
+@media(prefers-reduced-motion:reduce) {.simulator-lab *, .simulator-lab *::after {animation:none!important;transition:none!important}}

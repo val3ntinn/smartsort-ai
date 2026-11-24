@@ -1,6 +1,6 @@
 import { memo } from 'react'
-﻿import { motion, useReducedMotion } from 'motion/react'
-import { Check, Workflow } from 'lucide-react'
+import { motion, useReducedMotion } from 'motion/react'
+import { Check, Workflow, CircleAlert, RotateCcw } from 'lucide-react'
 import AnimatedNumber from './motion/AnimatedNumber'
 import { PausableElement, useMotionPlayback } from './motion/MotionPlayback'
 import { PanelHeader } from './components'
@@ -17,7 +17,7 @@ function DecisionPanel({result,active=false}:{result:SimulationState['decision']
   const position=(value:number)=>(value-minimum)/(maximum-minimum)*100
   const zero=position(0)
   return <section className="algorithm-panel panel decision-panel" aria-label="MDP sorting decision" data-active={active}>
-    <PanelHeader icon={Workflow} title="MDP decision" number="02" status={result?'COMPUTED':'READY'}/>
+    <PanelHeader icon={Workflow} title="MDP decision" number="02" status={active?'PROCESSING':result?'COMPUTED':'WAITING'}/>
     <div className="algorithm-content"><div className="algorithm-description">What should I do?<span>{sequential?'Finite-horizon belief-state planning.':'Awaiting Bayesian evidence.'}</span></div>
       {result?<><div className="decision-belief"><span>Proposed material / confidence</span><strong>{result.proposedMaterial} / {(result.probabilities.correct*100).toFixed(2)}%</strong></div>
       <div className="decision-state-probabilities"><span>{sequential?`${sequential.horizon} further sensor reads`:'Legacy one-step record'}</span><span>{sequential?'Terminal unresolved value: 0':'Immediate rewards only'}</span></div>
@@ -31,7 +31,7 @@ function DecisionPanel({result,active=false}:{result:SimulationState['decision']
           <p className="action-value-parts">Immediate {signed(evaluation.expectedReward)}{sequential&&evaluation.action==='INSPECT AGAIN'?value===null?' / no reads left':` + future ${signed(sequential.evaluations[1].continuationValue)}`:sequential?' / terminal':''}</p>
         </div>
       })}<div className="reward-scale" aria-hidden="true"><span>{minimum}</span><span style={{left:`${zero}%`}}>0</span><span>+{maximum}</span></div></div>
-      <div className={`decision-recommendation ${result.selectedAction==='SORT'?'':'inspect-recommendation'}`} role="status" aria-live="polite"><span><Check size={12}/>{result.selectedAction}</span><span>Value {signed(sequential?.value??result.selectedExpectedReward)}</span></div>
+      <div className={`decision-recommendation ${result.selectedAction==='SORT'?'':'inspect-recommendation'}`} role="status" aria-live="polite"><span>{result.selectedAction==='UNRESOLVED'?<CircleAlert size={14}/>:result.selectedAction==='INSPECT AGAIN'?<RotateCcw size={14}/>:<Check size={14}/ >}{result.selectedAction}</span><span>Value {signed(sequential?.value??result.selectedExpectedReward)}</span></div>
       <details className="decision-breakdown"><summary>{sequential?'Bellman calculation':'Reward calculation'}</summary>
         <p className="bellman-formula">{sequential?'V_h(b) = max[R_sort(b), R_inspect(b) + sum P(O | b) V_(h-1)(Bayes(b,O))]':'R(a) = P(correct) R(correct,a) + P(wrong) R(wrong,a)'}</p>
         <table><caption>Immediate state rewards and their expectation</caption><thead><tr><th scope="col">Action</th><th scope="col">Correct</th><th scope="col">Wrong</th><th scope="col">E[R]</th></tr></thead><tbody>{result.evaluations.map(e=><tr key={e.action}><th scope="row">{e.action}</th><td>{signed(e.rewards.correct)}</td><td>{signed(e.rewards.wrong)}</td><td>{signed(e.expectedReward)}</td></tr>)}</tbody></table>

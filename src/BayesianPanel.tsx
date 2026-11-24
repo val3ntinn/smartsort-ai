@@ -1,5 +1,5 @@
 import { memo } from 'react'
-import { motion, useReducedMotion } from 'motion/react'
+import { useReducedMotion } from 'motion/react'
 import { BrainCircuit } from 'lucide-react'
 import AnimatedNumber from './motion/AnimatedNumber'
 import { PausableElement, useMotionPlayback } from './motion/MotionPlayback'
@@ -21,20 +21,18 @@ function BayesianPanel({ result, initialPriors, active=false }: {
   const {speed}=useMotionPlayback()
   const tweenDuration=Math.min(.36,speed*.002)
   return <section className="algorithm-panel panel bayes-panel" aria-label="Bayesian inference" data-active={active}>
-    <PanelHeader icon={BrainCircuit} title="Bayesian inference" number="01" status={result ? 'COMPUTED' : 'READY'}/>
+    <PanelHeader icon={BrainCircuit} title="Bayesian inference" number="01" status={active?'PROCESSING':result?'COMPUTED':'WAITING'}/>
     <div className="algorithm-content">
-      <div className="algorithm-description">What is this object?<span>Two-material classification from a sensor observation.</span></div>
-      <div className="sensor-reading"><span>Sensor observation</span><strong>{observation ?? 'AWAITING SENSOR'}</strong></div>
-      <div className="bayes-chart-legend"><span><i className="prior-key"/>Prior</span><span><i className="posterior-key"/>Posterior</span></div>
-      <div className="bayes-probabilities">{BAYES_MATERIALS.map(material => <div className={`bayes-material ${material.toLowerCase()}`} key={material}>
-        {result && !reducedMotion && <motion.span key={result.observation+result.priors.PLASTIC} className="bayes-update-flash" initial={{opacity:result.mostLikelyMaterial === material ? .1 : .035}} animate={{opacity:0}} transition={{duration:.55}}/>}
-        <div className="bayes-material-heading"><span>{label(material)}{result?.mostLikelyMaterial === material && <motion.small className="probability-leader" initial={reducedMotion ? false : {opacity:0,x:-3}} animate={{opacity:1,x:0}} transition={{duration:reducedMotion ? 0 : .18}}>LIKELY</motion.small>}</span><strong><AnimatedNumber value={result ? result.posteriors[material]*100 : null} suffix="%"/></strong></div>
-        <div className="bayes-bar-row"><span>Prior</span><div className="bayes-track prior-track"><PausableElement animate={{width: `${priors[material]*100}%`}} duration={reducedMotion ? 0 : tweenDuration}/></div><span><AnimatedNumber value={priors[material]*100} suffix="%"/></span></div>
-        <div className="bayes-bar-row"><span>Posterior</span><div className="bayes-track" role="progressbar" aria-label={`${label(material)} posterior probability`} aria-valuemin={0} aria-valuemax={100} aria-valuenow={result ? result.posteriors[material] * 100 : undefined} aria-valuetext={result ? percent(result.posteriors[material]) : 'Awaiting observation'}><PausableElement animate={{width: `${(result?.posteriors[material] ?? 0) * 100}%`}} duration={reducedMotion || !result ? 0 : tweenDuration}/></div><span><AnimatedNumber value={result ? result.posteriors[material]*100 : null} suffix="%"/></span></div>
+      <div className="belief-introduction"><p>{observation?<>Evidence received: <strong>{observation}</strong></>:'No sensor evidence yet.'}</p><span>Each observation updates the current belief.</span></div>
+      <div className="belief-table"><div className="belief-table-head"><span>Material</span><span>Prior</span><span>Posterior</span></div>{BAYES_MATERIALS.map(material=><div className={`belief-material ${material.toLowerCase()}`} key={material}>
+        <div className="belief-numbers"><span>{label(material)}{result?.mostLikelyMaterial===material&&<small>Most likely</small>}</span><span>{percent(priors[material])}</span><strong><AnimatedNumber value={result?result.posteriors[material]*100:null} suffix="%"/></strong></div>
+        <div className="belief-axis" role="img" aria-label={`${label(material)}: prior ${percent(priors[material])}; posterior ${result?percent(result.posteriors[material]):'awaiting observation'}`}>
+          <span className="belief-axis-rule"/><span className="belief-prior-marker" style={{left:`${priors[material]*100}%`}}/>
+          {result&&<><PausableElement className="belief-shift" animate={{left:`${Math.min(priors[material],result.posteriors[material])*100}%`,width:`${Math.abs(priors[material]-result.posteriors[material])*100}%`}} duration={reducedMotion?0:tweenDuration}/><PausableElement className="belief-posterior-marker" animate={{left:`${result.posteriors[material]*100}%`}} duration={reducedMotion?0:tweenDuration}/></>}
+        </div><div className="belief-axis-labels"><span>0%</span><span>{result?`${result.posteriors[material]>=priors[material]?'+':''}${((result.posteriors[material]-priors[material])*100).toFixed(2)} percentage points`:'Awaiting update'}</span><span>100%</span></div>
       </div>)}</div>
-      <div className="bayes-result" role="status" aria-live="polite" aria-atomic="true">
-        {result ? <><span>Most likely <strong>{label(result.mostLikelyMaterial)}</strong></span><span><strong><AnimatedNumber value={result.confidence*100} suffix="%"/></strong> confidence</span></> : <span>Run the agent to collect a sensor observation.</span>}
-      </div>
+      <div className="belief-key"><span><i className="key-prior"/>Prior belief</span><span><i className="key-posterior"/>Updated belief</span></div>
+      <div className="bayes-result" role="status" aria-live="polite" aria-atomic="true">{result?<><span>Proposed material <strong>{label(result.mostLikelyMaterial)}</strong></span><span><strong>{percent(result.confidence)}</strong> confidence</span></>:<span>Start the agent to calculate its first posterior.</span>}</div>
       <details className="bayes-calculation">
         <summary>Calculation breakdown <span>Bayes' theorem</span></summary>
         <div className="bayes-formula">P(M | O) = P(O | M) &times; P(M) / P(O)</div>
